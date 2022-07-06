@@ -1,0 +1,10 @@
+version: '3'
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: uvicorn main:app --reload --host=0.0.0.0
+    #command: ["tail", "-f", "/dev/null"]
+    ports:
+      - "8000:8000"
