@@ -6,8 +6,8 @@ services:
     #   - ./src:/usr/src/app
     deploy:
       replicas: 2
-    #  placement:
-    #   constraints: [node.role == worker]
+      placement:
+        constraints: [node.role == manager]
     networks:
       - frontend
     #   placement:
