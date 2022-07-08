@@ -19,3 +19,7 @@ async def return_employees(total: int):
         val["location"] = data_generator.location_on_land()
         result.append(val)
     return result
+
+@app.get("/healthcheck")
+async def health_check():
+    return "healthy"
