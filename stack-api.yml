@@ -1,18 +1,16 @@
 version: '3'
 services:
   api:
-    image: macostrans/data-generator-api:v1
-    # volumes:
-    #   - ./src:/usr/src/app
+    image: macostrans/data-generator-api:v3
     deploy:
       replicas: 2
       placement:
         constraints: [node.role == worker]
+      update_config:
+        failure_action: rollback
+    command: uvicorn main:app --host=0.0.0.0 --port 80
     networks:
       - frontend
-    #   placement:
-    #    constraints: [node.role == manager]
-    # command: ["tail", "-f", "/dev/null"]
     ports:
       - "80:80"
 networks:
