@@ -13,20 +13,20 @@ Bonus:
   2. Try update and rollback.  
   3. Set up versioning and devops.  
 
-Roadblocks faced in step 1:
-ERROR: No matching distribution found for uvicorn==0.18.0
-Unable to access the api even though I already mapped ports.
-ImportError: cannot import name 'NoReturn' when I try to run uvicorn.
-Could not find a version that satisfies the requirement anyio<5,>=3.4.0
-Internal service error when I hit /employeeDetails/{total} because it recognizes total as string. 
+Roadblocks faced in step 1:  
+ERROR: No matching distribution found for uvicorn==0.18.0  
+Unable to access the api even though I already mapped ports.  
+ImportError: cannot import name 'NoReturn' when I try to run uvicorn.  
+Could not find a version that satisfies the requirement anyio<5,>=3.4.0.  
+Internal service error when I hit /employeeDetails/{total} because it recognizes total as string.  
 
-Learnings and links for step1:
-1. Bind your app inside Docker to 0.0.0.0, not to 127.0.0.1 address to let Docker reach the app inside container.
-2. https://stackoverflow.com/questions/39525820/docker-port-forwarding-not-working.
-3. Used path with parameter types(total: int) inside the def functions.
-4. Use the right or latest stable versions of python images or install it yourself on top of ubuntu images.
-5. Use requirments.txt file to install dependencies.
-6. update pip inside images
+Learnings and links for step1:  
+1. Bind your app inside Docker to 0.0.0.0, not to 127.0.0.1 address to let Docker reach the app inside container.  
+2. https://stackoverflow.com/questions/39525820/docker-port-forwarding-not-working.  
+3. Used path with parameter types(total: int) inside the def functions.  
+4. Use the right or latest stable versions of python images or install it yourself on top of ubuntu images.  
+5. Use requirments.txt file to install dependencies.  
+6. update pip inside images.  
 
 Bonus Part 2:  
 a)Adding healthcheck:  
