@@ -1,12 +1,14 @@
-Project:
- Requirement: create an api that spits out random number of data points based on given input. Ex. If I give 5 it should return 5 random data points(limit it to 200 data points per request).
- tools: Python, Fast API, Faker, AWS, Docker, docker swarm, bash, ubuntu, Anaconda.
- Plan: 
-  Step1: create python script and test fast API locally with docker
-  Step2: Test using dockerfile/docker stack
-  step3: create 3 small nodes in aws
-  step4: deploy using docker swarm and ensure equal distribution of api calls across nodes
- Bonus: 
+Project Requirement: create an api that spits out random number of data points based on given input. Ex. If I give 5 it should return 5 random data points(limit it to 200 data points per request).
+
+Tools: Python, Fast API, Faker, AWS, Docker, docker swarm, bash, ubuntu, Anaconda.
+ 
+Plan: 
+  Step 1: create python script and test fast API locally with docker
+  Step 2: Test using dockerfile/docker stack
+  step 3: create 3 small nodes in aws
+  step 4: deploy using docker swarm and ensure equal distribution of api calls across nodes
+
+Bonus: 
   1. Deploy healthcheck
   2. Try update and rollback
   3. Set up versioning and devops.
@@ -19,15 +21,15 @@ Could not find a version that satisfies the requirement anyio<5,>=3.4.0
 Internal service error when I hit /employeeDetails/{total} because it recognizes total as string. 
 
 Learnings and links for step1:
-Bind your app inside Docker to 0.0.0.0, not to 127.0.0.1 address to let Docker reach the app inside container.
-https://stackoverflow.com/questions/39525820/docker-port-forwarding-not-working.
-Used path with parameter types(total: int) inside the def functions.
-Use the right or latest stable versions of python images or install it yourself on top of ubuntu images.
-Use requirments.txt file to install dependencies.
-update pip inside images
+1. Bind your app inside Docker to 0.0.0.0, not to 127.0.0.1 address to let Docker reach the app inside container.
+2. https://stackoverflow.com/questions/39525820/docker-port-forwarding-not-working.
+3. Used path with parameter types(total: int) inside the def functions.
+4. Use the right or latest stable versions of python images or install it yourself on top of ubuntu images.
+5. Use requirments.txt file to install dependencies.
+6. update pip inside images
 
 Bonus Part 2:
-a)Adding healthcheck
+a)Adding healthcheck:
 Added the healthcheck command directly to the dockerfile and pushed the image to docker hub.
 
 Roadblocks and learnings:
