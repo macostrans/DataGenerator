@@ -26,7 +26,14 @@ Use the right or latest stable versions of python images or install it yourself 
 Use requirments.txt file to install dependencies.
 update pip inside images
 
+Part 2:
+Adding healthcheck
+Added the healthcheck command directly to the dockerfile and pushed the image to docker hub.
+Roadblocks faced:
+The docker container kept failing due to missing curl command and /bin/bash since I was using alpine version.
+Instaled curl and used /bin/sh for healthcheck.
 
+Don't use -d if you want to debug logs.
 
 
 
