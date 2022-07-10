@@ -1,17 +1,17 @@
-Project Requirement: create an api that spits out random number of data points based on given input. Ex. If I give 5 it should return 5 random data points(limit it to 200 data points per request).
+Project Requirement:  
+Create an api that spits out random number of data points based on given input. Ex. If I give 5 it should return 5 random data points(limit it to 200 data points per request).
 
-Tools: Python, Fast API, Faker, AWS, Docker, docker swarm, bash, ubuntu, Anaconda.
- 
-Plan: 
-  Step 1: create python script and test fast API locally with docker
-  Step 2: Test using dockerfile/docker stack
-  step 3: create 3 small nodes in aws
-  step 4: deploy using docker swarm and ensure equal distribution of api calls across nodes
+Tools: Python, Fast API, Faker, AWS, Docker, docker swarm, bash, ubuntu, Anaconda.  
+Plan:   
+  Step 1: create python script and test fast API locally with docker  
+  Step 2: Test using dockerfile/docker stack  
+  step 3: create 3 small nodes in aws  
+  step 4: deploy using docker swarm and ensure equal distribution of api calls across nodes  
 
-Bonus: 
-  1. Deploy healthcheck
-  2. Try update and rollback
-  3. Set up versioning and devops.
+Bonus:  
+  1. Deploy healthcheck.  
+  2. Try update and rollback.  
+  3. Set up versioning and devops.  
 
 Roadblocks faced in step 1:
 ERROR: No matching distribution found for uvicorn==0.18.0
@@ -28,23 +28,21 @@ Learnings and links for step1:
 5. Use requirments.txt file to install dependencies.
 6. update pip inside images
 
-Bonus Part 2:
-a)Adding healthcheck:
+Bonus Part 2:  
+a)Adding healthcheck:  
 Added the healthcheck command directly to the dockerfile and pushed the image to docker hub.
 
-Roadblocks and learnings:
-The docker container kept failing due to missing curl command and /bin/bash since I was using alpine version.
-Instaled curl and used /bin/sh within dockerfile for healthcheck.
-Don't use -d if you want to debug.
+Roadblocks and learnings:  
+The docker container kept failing due to missing curl command and /bin/bash since I was using alpine version.  
+Instaled curl and used /bin/sh within dockerfile for healthcheck.  
+Don't use -d if you want to debug.  
 
-b) Adding SSL
+b) Adding SSL  
+This is the hard part where I had do a lot of configuration to automate SSL for all domains. The link below explains this comprehensively:  
+https://www.youtube.com/watch?v=liV3c9m_OX8  
+https://docs.technotim.live/posts/traefik-portainer-ssl/  
 
-This is the hard part where I had do a lot of configuration to automate SSL for all domains. The link below explains this comprehensively:
-
-https://www.youtube.com/watch?v=liV3c9m_OX8
-https://docs.technotim.live/posts/traefik-portainer-ssl/
-
-Steps taken:
+Steps taken:  
 1. Purchased the domain datadeveloperfusion.com
 2. Created master node and captured it's ip
 3. Created domain mapping(A record mapping) to traefik-dashboard.datadeveloperfusion.com, api.datadeveloperfusion.com and portainer.datadeveloperfusion.com. Find attached screenshot. Make sure to map only to the traefik containers.
@@ -52,22 +50,22 @@ Steps taken:
 5. Hosted traefik and portainer with provided docker-compose and traefik configuration.
 6. Finally created the docker swarm using portainer and mapped traefik config file to a random node hosting the api. The surprisingly best part about this is you don't need to mention all the nodes in config since swarm auto balances all request across containers.
 
-Roadblocks and learnings:
-Traefik docker compose kept restarting since I failed to map the config files properly.
-Got API authorization key error since it did not have the right authorization. Make sure your token has zone edit acccess.
-After this I got a nvalied certificate error since I failed to clear the ACME.json cache file holding the wrong SSL created in the previous docker compose failure error.
-Make sure to host traefik on only manager container.
-Don't forget to add chmod 600 to ACME file
-Use hashed password for traefik compose file. You can find it at the end of youtube tutorial.
+Roadblocks and learnings:  
+Traefik docker compose kept restarting since I failed to map the config files properly.  
+Got API authorization key error since it did not have the right authorization. Make sure your token has zone edit acccess.  
+After this I got a nvalied certificate error since I failed to clear the ACME.json cache file holding the wrong SSL created in the previous docker compose failure error.  
+Make sure to host traefik on only manager container.  
+Don't forget to add chmod 600 to ACME file.  
+Use hashed password for traefik compose file. You can find it at the end of youtube tutorial.  
 
-ERROR: too many redirects.
-This is after fixing everything on the container side. Set the Cloudflare SSL mode to full (strict), and the redirect loop should be resolved.
-https://community.cloudflare.com/t/too-many-redirects-when-connection-proxied/209051
+ERROR: too many redirects.  
+This is after fixing everything on the container side. Set the Cloudflare SSL mode to full (strict), and the redirect loop should be resolved.  
+https://community.cloudflare.com/t/too-many-redirects-when-connection-proxied/209051  
 
-ERROR: SSL VERSION OR CYPHER MISMATCH. Make sure to disable proxy on A name records within cloudflare as seen in the screenshot.
-https://community.letsencrypt.org/t/ssl-mismatch-when-using-cloudflare-proxy-traefik/52612
+ERROR: SSL VERSION OR CYPHER MISMATCH. Make sure to disable proxy on A name records within cloudflare as seen in the screenshot.  
+https://community.letsencrypt.org/t/ssl-mismatch-when-using-cloudflare-proxy-traefik/52612  
 
-Got traefik docker compose failure due to wrong indentation. Be careful while working with indentations.
-Don't forget to change host rule to your own domain.
-Learn to use portainer to manage docker services.
-When creating nodes on cloud use bash scripts to pre install docker and other requirments.
+Got traefik docker compose failure due to wrong indentation. Be careful while working with indentations.  
+Don't forget to change host rule to your own domain.  
+Learn to use portainer to manage docker services.  
+When creating nodes on cloud use bash scripts to pre install docker and other requirments.  
