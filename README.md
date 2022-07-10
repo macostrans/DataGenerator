@@ -38,7 +38,9 @@ Instaled curl and used /bin/sh within dockerfile for healthcheck.
 Don't use -d if you want to debug.
 
 b) Adding SSL
-This is the hard part where I had do a lot of configuration to automate SSL for all domains. is used the below links to learn and do it:
+
+This is the hard part where I had do a lot of configuration to automate SSL for all domains. The link below explains this comprehensively:
+
 https://www.youtube.com/watch?v=liV3c9m_OX8
 https://docs.technotim.live/posts/traefik-portainer-ssl/
 
