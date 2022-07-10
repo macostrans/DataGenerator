@@ -14,10 +14,9 @@ http:
     api:
       loadBalancer:
         servers:
-          - url: "https://node2:80"
-          - url: "https://node3:80"
+          - url: "https://157.245.200.83"
         passHostHeader: true
- middlewares:
+  middlewares:
     addprefix-pihole:
       addPrefix:
         prefix: "/admin"
