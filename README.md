@@ -66,3 +66,4 @@ https://community.letsencrypt.org/t/ssl-mismatch-when-using-cloudflare-proxy-tra
 Got traefik docker compose failure due to wrong indentation. Be careful while working with indentations.
 Don't forget to change host rule to your own domain.
 Learn to use portainer to manage docker services.
+When creating nodes on cloud use bash scripts to pre install docker and other requirments.
