@@ -1,0 +1,7 @@
+Create new folder with cleaned up dockerfile and compose files.
+connect gitlab.
+install gitlab runner on server.
+docker swarm initialize.
+use config secrets for cloudlflare.
+docker stack deploy.
+
