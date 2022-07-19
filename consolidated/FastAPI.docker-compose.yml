@@ -15,6 +15,7 @@ services:
         - traefik.constraint-label=traefik-public
         - traefik.http.middlewares.https-redirect.redirectscheme.scheme=https
         - traefik.http.middlewares.https-redirect.redirectscheme.permanent=true
+        - traefik.http.middlewares.admin-auth.basicauth.users=${USERNAME?Variable not set}:${HASHED_PASSWORD?Variable not set}
         - traefik.http.routers.traefik-public-http.rule=Host(`traefik.${DOMAIN?Variable not set}`)
         - traefik.http.routers.traefik-public-http.entrypoints=http
         - traefik.http.routers.traefik-public-http.middlewares=https-redirect
@@ -50,18 +51,19 @@ services:
     command: uvicorn main:app --host=0.0.0.0 --port 80
     expose: 
       - 80
-    labels:
-      - traefik.enable=true
-      - traefik.docker.network=traefik-public
-      - traefik.constraint-label=traefik-public
-      - traefik.http.routers.api-http.rule=Host(`api.${DOMAIN?Variable not set}`)
-      - traefik.http.routers.api-http.entrypoints=http
-      - traefik.http.routers.api-http.middlewares=https-redirect
-      - traefik.http.routers.api-https.rule=Host(`api.${DOMAIN?Variable not set}`)
-      - traefik.http.routers.api-https.entrypoints=https
-      - traefik.http.routers.api-https.tls=true
-      - traefik.http.routers.api-https.tls.certresolver=le
-      - traefik.http.services.api.loadbalancer.server.port=80
+    deploy:
+      labels:
+        - traefik.enable=true
+        - traefik.docker.network=traefik-public
+        - traefik.constraint-label=traefik-public
+        - traefik.http.routers.api-http.rule=Host(`api.${DOMAIN?Variable not set}`)
+        - traefik.http.routers.api-http.entrypoints=http
+        - traefik.http.routers.api-http.middlewares=https-redirect
+        - traefik.http.routers.api-https.rule=Host(`api.${DOMAIN?Variable not set}`)
+        - traefik.http.routers.api-https.entrypoints=https
+        - traefik.http.routers.api-https.tls=true
+        - traefik.http.routers.api-https.tls.certresolver=le
+        - traefik.http.services.api.loadbalancer.server.port=80
 volumes:
   traefik-public-certificates:
 
