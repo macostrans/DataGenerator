@@ -1,4 +1,4 @@
-version: '3'
+version: '3.3'
 services:
   traefik:
     image: traefik:v2.8
@@ -52,6 +52,8 @@ services:
     expose: 
       - 80
     deploy:
+      placement:
+        constriants:
       labels:
         - traefik.enable=true
         - traefik.docker.network=traefik-public
