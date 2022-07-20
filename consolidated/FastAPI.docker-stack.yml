@@ -49,11 +49,12 @@ services:
     image: macostrans/data-generator-api:v3
     restart: always
     command: uvicorn main:app --host=0.0.0.0 --port 80
-    expose: 
-      - 80
+    networks:
+      - traefik-public
     deploy:
       placement:
-        constriants:
+        constraints:
+        - node.role==worker
       labels:
         - traefik.enable=true
         - traefik.docker.network=traefik-public

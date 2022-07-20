@@ -6,4 +6,5 @@ export DOMAIN=datadeveloperfusion.com
 export USERNAME=admin
 export PASSWORD=password
 export HASHED_PASSWORD=$(openssl passwd -apr1 $PASSWORD)
-docker stack deploy -c FastAPI.docker-compose.yml traefik
+curl -L https://raw.githubusercontent.com/macostrans/DataGenerator/master/consolidated/FastAPI.docker-stack.yml  -o traefik-host.yml
+docker stack deploy -c traefik-host.yml traefik
