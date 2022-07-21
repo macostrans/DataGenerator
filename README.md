@@ -69,3 +69,25 @@ Got traefik docker compose failure due to wrong indentation. Be careful while wo
 Don't forget to change host rule to your own domain.  
 Learn to use portainer to manage docker services.  
 When creating nodes on cloud use bash scripts to pre install docker and other requirments.  
+
+Part III: Consolidation, Devops and final touch ups.  
+Consolidated multiple dock compose, stack files into a single stack file.  
+One issue I faced during consolidation was I was unable to access some urls in my machine while I was able to access the same from outside. I scrached my head initially since traefik was running properly and recogonizing other containers.  
+This happened due to DNS caching on my local machine. I used tor browser to get around it. FYI I deleted my initial machine after the project and recreated it.  
+If you browser shows invalid certificate It might be due to recreating the server while your browser has cached SSL state. You can either go incognito or clear cache in browser to resolve this issue.  
+
+CI-CD:  
+Setting up CI-CD with gitlab was fairly easy. I used the below links as initial reference.  
+https://www.youtube.com/watch?v=RV0845KmsNI  
+https://docs.gitlab.com/runner/install/linux-manually.html  
+One thing that is missing the tutorial is adding ssh keys on gitlab side to connect to the reporsitries.  
+Don't forget to add docker permission to gitlab-runner and grant sudo permissions to gitlab-runner if possible.  
+
+
+Tips:
+Push your secret environment variables in gitlab rather than using export command in the gitlab file.    
+Don't forget to change DNS records to point to the new manager node.  
+Better to create the network traefik-proxy as it is a one time requirement. Else it might throw error.  
+I feel it might be better to segregate out the stack files betweem traefik and api stacks.  
+
+Cleanup resources when done.
